@@ -1,11 +1,11 @@
 steps:
   # 构建 Docker 镜像
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/fastmcp-server:$COMMIT_SHA', '.']
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/byteepochserver:$COMMIT_SHA', '.']
   
   # 推送到 Container Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/fastmcp-server:$COMMIT_SHA']
+    args: ['push', 'gcr.io/$PROJECT_ID/byteepochserver:$COMMIT_SHA']
   
   # 部署到 Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -13,9 +13,9 @@ steps:
     args:
       - 'run'
       - 'deploy'
-      - 'fastmcp-server'
+      - 'byteepochserver'
       - '--image'
-      - 'gcr.io/$PROJECT_ID/fastmcp-server:$COMMIT_SHA'
+      - 'gcr.io/$PROJECT_ID/byteepochserver:$COMMIT_SHA'
       - '--platform'
       - 'managed'
       - '--region'
@@ -29,4 +29,4 @@ steps:
       - '1'
 
 images:
-  - 'gcr.io/$PROJECT_ID/fastmcp-server:$COMMIT_SHA'
+  - 'gcr.io/$PROJECT_ID/byteepochserver:$COMMIT_SHA'
